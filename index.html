@@ -401,7 +401,7 @@ function calendar(loc){return new Promise(res=>{const now=new Date(),t0=new Date
   e.querySelectorAll('.cm button').forEach(b=>b.onclick=()=>{if(done)return;m=new Date(y,mo+ +b.dataset.d,1);draw()});
   e.querySelectorAll('.cg button').forEach(b=>b.onclick=()=>{if(done)return;done=1;b.classList.add('sel');const dt=new Date(+b.dataset.t);e.querySelectorAll('button').forEach(x=>x.disabled=true);me(new Intl.DateTimeFormat(loc,{day:'numeric',month:'long',year:'numeric'}).format(dt));res(dt)});scr()};draw()})}
 function quote(c,days,len){const f=days<=4?1.3:days<=7?1.1:days<=14?1:days<=20?.96:.92,cf=days<=4?1.12:days<=7?.92:days<=14?.86:days<=20?.82:.78,k=1+Math.min(len,600)/600*.25,r5=x=>Math.round(x/5)*5,[lo,hi]=PR[c];return{lo:r5(lo*f*k),hi:r5(hi*f*k),our:r5((lo+hi)/2*f*k*cf)}}
-const HOOK='lineabot.kojayevnaufal.workers.dev'; /* адрес Cloudflare Worker */
+const HOOK='https://lineabot.kojayevnaufal.workers.dev'; /* адрес Cloudflare Worker */
 async function send(B,tag){const m=`🆕 ${tag}\n\n👤 ${B.name}\n📲 ${B.net}: ${B.contact}\n🎯 ${B.catn}\n📅 ${B.date} (${B.days} d)\n💵 $${B.price} · ${B.pct||'-'}%\n\n📝 ${B.need}\n🔗 ${B.link||'-'}\n📎 ${B.files.map(f=>f.name).join(', ')||'-'}`;console.log(m);
  try{await fetch(HOOK,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:m})});
   if(tag.startsWith('New'))for(const f of B.files){if(f.size>50*1048576)continue;const fd=new FormData();fd.append('document',f);await fetch(HOOK,{method:'POST',body:fd})}}catch(e){console.error(e)}}
